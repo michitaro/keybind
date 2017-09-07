@@ -136,12 +136,14 @@ var KeyCombination = /** @class */ (function () {
             whichKey(e) == this.key);
     };
     KeyCombination.prototype.html = function () {
+        var m = this.key.match(/^Key([A-Z])$/);
+        var key = m ? m[1] : this.key;
         return [
             this.alt ? '&#x2325;' : '',
             this.shift ? '&#x21e7;' : '',
             this.ctrl ? '&#x2303;' : '',
             this.meta ? '&#x2318;' : '',
-            this.key.toUpperCase()
+            key
         ].join('');
     };
     return KeyCombination;
