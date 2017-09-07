@@ -31,12 +31,14 @@ class KeyCombination {
     }
 
     html() {
+        const m = this.key.match(/^Key([A-Z])$/)
+        const key = m ? m[1] : this.key
         return [
             this.alt ? '&#x2325;' : '',
             this.shift ? '&#x21e7;' : '',
             this.ctrl ? '&#x2303;' : '',
             this.meta ? '&#x2318;' : '',
-            this.key.toUpperCase()
+            key
         ].join('')
     }
 }
