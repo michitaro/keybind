@@ -18,7 +18,9 @@ class KeyCombination {
         if (keys.length != 1)
             throw new Error(`invalid keybind source: ${source}`)
         const key = keys[0]
-        this.key = key.length == 1 ? this.key = `Key${key.toUpperCase()}` : key
+        if (key.length != 1)
+            throw new Error(`invalid keybind source: ${source}`)
+        this.key = keyCode2code(key.charCodeAt(0))
     }
 
     match(e: KeyboardEvent) {
@@ -31,7 +33,7 @@ class KeyCombination {
     }
 
     html() {
-        const m = this.key.match(/^Key([A-Z])$/)
+        const m = this.key.match(/^Key([A-Z1-9])$/)
         const key = m ? m[1] : this.key
         return [
             this.alt ? '&#x2325;' : '',
@@ -45,9 +47,15 @@ class KeyCombination {
 
 
 function whichKey(e: KeyboardEvent) {
-    if (e.code)
-        return e.code
-    return `Key${String.fromCharCode(e.keyCode)}`
+    // if (e.code)
+    //     return e.code
+    return keyCode2code(e.keyCode)
+}
+
+
+function keyCode2code(keyCode: number) {
+    const key = String.fromCharCode(keyCode)
+    return `Key${key}`
 }
 
 
