@@ -54,7 +54,7 @@ function whichKey(e: KeyboardEvent) {
 
 
 function keyCode2code(keyCode: number) {
-    const key = String.fromCharCode(keyCode)
+    const key = String.fromCharCode(keyCode).toUpperCase()
     return `Key${key}`
 }
 
