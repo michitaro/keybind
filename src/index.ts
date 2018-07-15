@@ -18,23 +18,21 @@ class KeyCombination {
         if (keys.length != 1)
             throw new Error(`invalid keybind source: ${source}`)
         const key = keys[0]
-        if (key.length != 1)
-            throw new Error(`invalid keybind source: ${source}`)
-        this.key = keyCode2code(key.charCodeAt(0))
+        this.key = key.length == 1 ? key.toLowerCase() : key
     }
 
     match(e: KeyboardEvent) {
+        const key = e.key.length == 1 ? e.key.toLowerCase() : e.key
         return (
             e.altKey == this.alt &&
             e.shiftKey == this.shift &&
             e.ctrlKey == this.ctrl &&
             e.metaKey == this.meta &&
-            whichKey(e) == this.key)
+            key == this.key)
     }
 
     html() {
-        const m = this.key.match(/^Key([A-Z1-9])$/)
-        const key = m ? m[1] : this.key
+        const key = this.key.length == 1 ? this.key.toUpperCase() : this.key
         return [
             this.alt ? '&#x2325;' : '',
             this.shift ? '&#x21e7;' : '',
@@ -43,19 +41,6 @@ class KeyCombination {
             key
         ].join('')
     }
-}
-
-
-function whichKey(e: KeyboardEvent) {
-    // if (e.code)
-    //     return e.code
-    return keyCode2code(e.keyCode)
-}
-
-
-function keyCode2code(keyCode: number) {
-    const key = String.fromCharCode(keyCode).toUpperCase()
-    return `Key${key}`
 }
 
 
@@ -81,7 +66,7 @@ export function on(source: string, handler: (e: KeyboardEvent) => void) {
     keybinds.push(kb)
     return () => {
         const i = keybinds.indexOf(kb)
-        console.assert(i >= 0)
+        console.assert(i >= 0, `keybind ${source} is not registered`)
         keybinds.splice(i, 1)
     }
 }

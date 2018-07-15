@@ -2,7 +2,7 @@ import * as keybind from "../src"
 
 window.addEventListener('load', () => {
     keybind.on('shift+x', () => alert('shift + X'))
-    keybind.on('alt+x', () => alert('alt + X'))
+    keybind.on('Tab', () => alert('Tab'))
     keybind.on('ctrl+x', () => alert('ctrl + X'))
     keybind.on('meta+x', () => alert('meta + X'))
 
@@ -12,7 +12,7 @@ window.addEventListener('load', () => {
         off()
     })
 
-    const sources = ['shift+x', 'alt+x', 'ctrl+x', 'meta+x', 'shift+ctrl+x']
+    const sources = ['shift+x', 'Tab', 'ctrl+x', 'meta+x', 'shift+ctrl+x']
     for (const s of sources) {
         const html = keybind.html(s)
         const div = document.createElement('div')
