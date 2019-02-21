@@ -36,7 +36,7 @@ class KeyCombination {
             this.shift ? '&#x21e7;' : '',
             this.ctrl ? '&#x2303;' : '',
             this.meta ? '&#x2318;' : '',
-            this.key.toString()
+            this.key.toHTML()
         ].join('')
     }
 }
@@ -66,9 +66,10 @@ class PhysicalKey {
         return this.keyCode == o.keyCode
     }
 
-    toString() {
+    toHTML() {
         const name = code2name[this.keyCode]
-        return name || String.fromCharCode(this.keyCode)
+        const html = name2html[name]
+        return html || name || String.fromCharCode(this.keyCode)
     }
 }
 
@@ -120,6 +121,12 @@ const name2code = {
     Up: 38,
     Right: 39,
     Down: 40,
+}
+
+const name2html = {
+    Tab: '\u21E5',
+    Enter: '\u23CE',
+    Escape: '\u238B',
 }
 
 const code2name = (() => {
