@@ -5,6 +5,7 @@ window.addEventListener('load', () => {
     keybind.on('Tab', () => alert('Tab'))
     keybind.on('ctrl+x', () => alert('ctrl + X'))
     keybind.on('meta+x', () => alert('meta + X'))
+    keybind.on('F11', () => alert('F11'))
 
     // can be triggered only once
     const off = keybind.on('shift+ctrl+x', () => {
@@ -12,7 +13,7 @@ window.addEventListener('load', () => {
         off()
     })
 
-    const sources = ['shift+x', 'Tab', 'ctrl+x', 'meta+x', 'shift+ctrl+x']
+    const sources = ['shift+x', 'Tab', 'ctrl+x', 'meta+x', 'shift+ctrl+x', 'F11']
     for (const s of sources) {
         const html = keybind.html(s)
         const div = document.createElement('div')
